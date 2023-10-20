@@ -16,7 +16,8 @@ public class MySpringProjectApplication {
 //        SpringApplication.run(MySpringProjectApplication.class, args);
 
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application.xml");
-        System.out.println(context.getBean("p1",ConnectionPool.class));
+        ConnectionPool connectionPool = context.getBean("p1", ConnectionPool.class);
+        System.out.println(connectionPool);
 
     }
 
