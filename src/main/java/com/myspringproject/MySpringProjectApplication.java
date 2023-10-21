@@ -2,6 +2,7 @@ package com.myspringproject;
 
 import com.myspringproject.database.pool.ConnectionPool;
 import com.myspringproject.database.repository.CompanyRepository;
+import com.myspringproject.database.repository.CrudRepository;
 import com.myspringproject.database.repository.UserRepository;
 import com.myspringproject.ioc.Container;
 import com.myspringproject.service.UserService;
@@ -28,8 +29,8 @@ public class MySpringProjectApplication {
             var connectionPool = context.getBean("p1", ConnectionPool.class);
             System.out.println(connectionPool);
 
-            var companyRepository = context.getBean("companyRepository", CompanyRepository.class);
-            System.out.println(companyRepository);
+            var companyRepository = context.getBean("companyRepository", CrudRepository.class);
+            System.out.println(companyRepository.findById(1));
 
         }
     }

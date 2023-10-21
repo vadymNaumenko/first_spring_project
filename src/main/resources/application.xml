@@ -11,6 +11,8 @@
     <context:annotation-config/>
 
     <bean class="com.myspringproject.bpp.InjectBeanPostProcessor"/>
+    <bean class="com.myspringproject.bpp.TransactionBeanPostProcessor"/>
+    <bean class="com.myspringproject.bpp.AuditingBeanPostProcessor"/>
 <!--    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>-->
 
 <!--    <bean name="db" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">-->
@@ -23,6 +25,7 @@
     <bean id="driver" class="java.lang.String">
         <constructor-arg type="java.lang.String" value="${db.driver}"/>
     </bean>
+    <bean id="pool2" class="com.myspringproject.database.pool.ConnectionPool"/>
     <bean id="pool" name="p1,p2,p3" class="com.myspringproject.database.pool.ConnectionPool">
 
         <constructor-arg name="userName" type="java.lang.String" value="${db.username}"/>
