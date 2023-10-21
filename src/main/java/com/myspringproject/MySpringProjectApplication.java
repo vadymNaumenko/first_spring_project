@@ -20,9 +20,9 @@ public class MySpringProjectApplication {
 //        SpringApplication.run(MySpringProjectApplication.class, args);
 
         String value = "hello";
-        System.out.println(CharSequence.class.isAssignableFrom(value.getClass()));
-        System.out.println(BeanFactoryPostProcessor.class.isAssignableFrom(value.getClass()));
-        System.out.println(Serializable.class.isAssignableFrom(value.getClass()));
+//        System.out.println(CharSequence.class.isAssignableFrom(value.getClass()));
+//        System.out.println(BeanFactoryPostProcessor.class.isAssignableFrom(value.getClass()));
+//        System.out.println(Serializable.class.isAssignableFrom(value.getClass()));
 
         try (var context = new ClassPathXmlApplicationContext("application.xml")) {
             //      clazz -> String -> Map<String, Object>
