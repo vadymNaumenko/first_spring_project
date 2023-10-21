@@ -1,9 +1,12 @@
 package com.myspringproject.service;
 
-public class CompanyService {
-    private UserService userService;
+import org.springframework.stereotype.Service;
 
-    public void setUserService(UserService userService) {
+@Service
+public class CompanyService {
+    private final UserService userService;
+
+    public CompanyService(UserService userService) {
         this.userService = userService;
     }
 }

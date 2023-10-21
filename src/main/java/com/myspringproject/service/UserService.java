@@ -1,18 +1,18 @@
 package com.myspringproject.service;
 
+import com.myspringproject.database.entity.Company;
 import com.myspringproject.database.repository.CompanyRepository;
+import com.myspringproject.database.repository.CrudRepository;
 import com.myspringproject.database.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserService {
     private final UserRepository userRepository;
-    private final CompanyRepository companyRepository;
-    private CompanyService companyService;
+    private final CrudRepository<Integer, Company> companyRepository;
 
-    public void setCompanyService(CompanyService companyService) {
-        this.companyService = companyService;
-    }
-
-    public UserService(UserRepository userRepository, CompanyRepository companyRepository) {
+    public UserService(UserRepository userRepository,
+                       CrudRepository<Integer, Company> companyRepository) {
         this.userRepository = userRepository;
         this.companyRepository = companyRepository;
     }
