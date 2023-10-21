@@ -5,9 +5,12 @@ import com.myspringproject.database.repository.CompanyRepository;
 import com.myspringproject.database.repository.UserRepository;
 import com.myspringproject.ioc.Container;
 import com.myspringproject.service.UserService;
+import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.io.Serializable;
 
 @SpringBootApplication
 public class MySpringProjectApplication {
@@ -15,14 +18,19 @@ public class MySpringProjectApplication {
     public static void main(String[] args) {
 //        SpringApplication.run(MySpringProjectApplication.class, args);
 
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application.xml");
-        ConnectionPool connectionPool = context.getBean("p1", ConnectionPool.class);
-        System.out.println(connectionPool);
+        String value = "hello";
+        System.out.println(CharSequence.class.isAssignableFrom(value.getClass()));
+        System.out.println(BeanFactoryPostProcessor.class.isAssignableFrom(value.getClass()));
+        System.out.println(Serializable.class.isAssignableFrom(value.getClass()));
 
-        CompanyRepository companyRepository = context.getBean("companyRepository", CompanyRepository.class);
+        try (var context = new ClassPathXmlApplicationContext("application.xml")) {
+            //      clazz -> String -> Map<String, Object>
+            var connectionPool = context.getBean("p1", ConnectionPool.class);
+            System.out.println(connectionPool);
 
-        System.out.println(companyRepository);
+            var companyRepository = context.getBean("companyRepository", CompanyRepository.class);
+            System.out.println(companyRepository);
 
+        }
     }
-
 }

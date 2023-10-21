@@ -27,6 +27,9 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.9.3'
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.9.3'
+    // https://mvnrepository.com/artifact/jakarta.annotation/jakarta.annotation-api
+    implementation group: 'jakarta.annotation', name: 'jakarta.annotation-api', version: '2.1.1'
+
 
 
 
