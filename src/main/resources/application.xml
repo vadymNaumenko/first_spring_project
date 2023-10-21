@@ -10,6 +10,7 @@
     <context:property-placeholder location="application.properties"/>
     <context:annotation-config/>
 
+    <bean class="com.myspringproject.bpp.InjectBeanPostProcessor"/>
 <!--    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>-->
 
 <!--    <bean name="db" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">-->
@@ -52,9 +53,7 @@
         </property>
     </bean>
 
-    <bean id="companyRepository" class="com.myspringproject.database.repository.CompanyRepository" factory-method="of">
-        <constructor-arg ref="p2"/>
-    </bean>
+    <bean id="companyRepository" class="com.myspringproject.database.repository.CompanyRepository" />
 
     <!--    <bean id="pool2" name="p4" class="com.myspringproject.database.pool.ConnectionPool"/>-->
 </beans>

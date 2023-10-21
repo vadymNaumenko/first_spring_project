@@ -1,14 +1,11 @@
 package com.myspringproject.database.repository;
 
+import com.myspringproject.bpp.InjectBean;
 import com.myspringproject.database.pool.ConnectionPool;
 
 public class CompanyRepository {
-    ConnectionPool connectionPool;
+    @InjectBean
+   private  ConnectionPool connectionPool;
 
-    public CompanyRepository(ConnectionPool connectionPool) {
-        this.connectionPool = connectionPool;
-    }
-     public static CompanyRepository of(ConnectionPool connectionPool){
-        return new CompanyRepository(connectionPool);
-     }
+
 }
