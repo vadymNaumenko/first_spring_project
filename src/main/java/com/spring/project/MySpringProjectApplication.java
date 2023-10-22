@@ -2,7 +2,7 @@ package com.spring.project;
 
 import com.spring.project.config.ApplicationConfiguration;
 import com.spring.project.database.pool.ConnectionPool;
-import com.spring.project.database.repository.CrudRepository;
+import com.spring.project.service.CompanyService;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -27,8 +27,8 @@ public class MySpringProjectApplication {
 
             System.out.println(connectionPool);
 
-            var companyRepository = context.getBean("companyRepository", CrudRepository.class);
-            System.out.println(companyRepository.findById(1));
+            var companyService = context.getBean( CompanyService.class);
+            System.out.println(companyService.findById(1));
 
         }
     }
