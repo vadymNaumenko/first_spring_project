@@ -11,15 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Import(WebConfiguration.class)
 @Configuration
-@PropertySource("classpath:application.properties")
-@ComponentScan(basePackages = "com.spring.project",
-        useDefaultFilters = false,
-        includeFilters = {
-                @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Component.class),
-                @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = CrudRepository.class),
-                @ComponentScan.Filter(type = FilterType.REGEX, pattern = "com\\..+Repository")
-        }
-)
+
 public class ApplicationConfiguration {
     @Bean("pool2")
     @Scope(BeanDefinition.SCOPE_SINGLETON)
@@ -36,7 +28,7 @@ public class ApplicationConfiguration {
 //    @Profile("!prod")
     // ! & ||
     @Bean
-    @Profile("prod||web")
+    @Profile("prod|web")
     public UserRepository userRepository2(ConnectionPool pool2) {
         return new UserRepository(pool2);
     }
