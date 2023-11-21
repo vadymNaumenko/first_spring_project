@@ -23,6 +23,14 @@ class CompanyRepositoryTest {
     private final CompanyRepository companyRepository;
 
     @Test
+    void checkFindByQueries(){
+        assertAll(()->{
+            assertTrue(companyRepository.existsById(1));
+            companyRepository.findAllByNameContainingIgnoreCase("a");
+        });
+    }
+
+    @Test
     void delete(){
       Optional <Company> maybeCompany = companyRepository.findById(APPLE_ID);
 
