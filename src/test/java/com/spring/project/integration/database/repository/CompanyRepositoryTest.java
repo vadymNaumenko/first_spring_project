@@ -26,6 +26,8 @@ class CompanyRepositoryTest {
     void checkFindByQueries(){
         assertAll(()->{
             assertTrue(companyRepository.existsById(1));
+            companyRepository.findByName("google");
+
             companyRepository.findAllByNameContainingIgnoreCase("a");
         });
     }
