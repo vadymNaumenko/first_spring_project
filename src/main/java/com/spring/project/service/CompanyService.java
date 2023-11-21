@@ -1,7 +1,6 @@
 package com.spring.project.service;
 
-import com.spring.project.database.entity.Company;
-import com.spring.project.database.repository.CrudRepository;
+import com.spring.project.database.repository.CompanyRepository;
 import com.spring.project.dto.CompanyReadDto;
 import com.spring.project.listener.entity.AccessType;
 import com.spring.project.listener.entity.EntityEvent;
@@ -14,7 +13,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class CompanyService {
-    private  final CrudRepository<Integer, Company> companyRepository;
+    private  final CompanyRepository companyRepository;
     private final UserService userService;
     private final ApplicationEventPublisher eventPublisher;
 

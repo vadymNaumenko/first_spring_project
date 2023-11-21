@@ -17,6 +17,8 @@ public class ApplicationRunner {
         System.out.println(context.getBean("pool1"));
         System.out.println(context.getBean(DatabaseProperties.class));
 
+        //52
+
 
 
     }
