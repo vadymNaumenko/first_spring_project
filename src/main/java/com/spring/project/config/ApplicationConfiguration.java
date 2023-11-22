@@ -1,13 +1,11 @@
 package com.spring.project.config;
 
 import com.spring.project.database.pool.ConnectionPool;
-import com.spring.project.database.repository.CrudRepository;
-import com.spring.project.database.repository.UserRepository;
 import com.spring.web.config.WebConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.*;
-import org.springframework.stereotype.Component;
+
 
 @Import(WebConfiguration.class)
 @Configuration
@@ -25,15 +23,4 @@ public class ApplicationConfiguration {
         return new ConnectionPool("test-pool", 25);
     }
 
-//    @Profile("!prod")
-    // ! & ||
-    @Bean
-    @Profile("prod|web")
-    public UserRepository userRepository2(ConnectionPool pool2) {
-        return new UserRepository(pool2);
-    }
-    @Bean
-    public UserRepository userRepository3() {
-        return new UserRepository(pool3());
-    }
 }
