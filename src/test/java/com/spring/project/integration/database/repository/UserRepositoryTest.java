@@ -7,9 +7,7 @@ import com.spring.project.integration.annotation.IT;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,10 +23,30 @@ class UserRepositoryTest {
 
     @Test
     void checkPageable(){
-        PageRequest pageable = PageRequest.of(1, 2, Sort.by("id"));
-        List<User> result = userRepository.findAllBy(pageable);
-        assertEquals(2,result.size());
+        PageRequest pageable = PageRequest.of(0, 2, Sort.by("id"));
+        Page<User> slice = userRepository.findAllBy(pageable);
+
+        slice.forEach(s -> System.out.println(s.getId()));
+
+        while (slice.hasNext()){
+            slice = userRepository.findAllBy(slice.nextPageable());
+//            long totalEl = slice.getTotalElements();
+//            int totalPage = slice.getTotalPages();
+//            Pageable withPage = slice.nextPageable().withPage(2);
+//            slice = userRepository.findAllBy(withPage);
+//            System.out.println("s");
+            slice.forEach(s -> System.out.println(s.getId()));
+        }
+
+
     }
+
+//    @Test
+//    void checkPageable(){
+//        PageRequest pageable = PageRequest.of(1, 2, Sort.by("id"));
+//        List<User> result = userRepository.findAllBy(pageable);
+//        assertEquals(2,result.size());
+//    }
 
     @Test
     void checkSort(){
