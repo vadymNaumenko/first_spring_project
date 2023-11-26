@@ -5,6 +5,7 @@ import com.spring.project.database.entity.User;
 import com.spring.project.database.repository.UserRepository;
 import com.spring.project.dto.PersonalInfo;
 import com.spring.project.dto.PersonalInfo2;
+import com.spring.project.dto.UserFilter;
 import com.spring.project.integration.annotation.IT;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Assertions;
@@ -23,6 +24,22 @@ class UserRepositoryTest {
 
     private final UserRepository userRepository;
 
+    @Test
+    void checkAuditing(){
+        User user = userRepository.findById(1L).get();
+        user.setBirthDate(user.getBirthDate().plusYears(1L));
+        userRepository.flush();
+        System.out.println();
+    }
+
+    @Test
+    void checkCustomImplementation(){
+        UserFilter filter = new UserFilter(
+                null, "%ov%",LocalDate.now()
+        );
+        List<User> users = userRepository.findAllByFilter(filter);
+        System.out.println();
+    }
     @Test
     void checkProjections(){
 //        List<PersonalInfo> users = userRepository.findAllByCompanyId(1,PersonalInfo.class);
