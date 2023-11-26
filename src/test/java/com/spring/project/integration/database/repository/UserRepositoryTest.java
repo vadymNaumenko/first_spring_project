@@ -26,7 +26,7 @@ class UserRepositoryTest {
         PageRequest pageable = PageRequest.of(0, 2, Sort.by("id"));
         Page<User> slice = userRepository.findAllBy(pageable);
 
-        slice.forEach(s -> System.out.println(s.getId()));
+        slice.forEach(s -> System.out.println(s.getCompany().getName()));
 
         while (slice.hasNext()){
             slice = userRepository.findAllBy(slice.nextPageable());
@@ -35,7 +35,7 @@ class UserRepositoryTest {
 //            Pageable withPage = slice.nextPageable().withPage(2);
 //            slice = userRepository.findAllBy(withPage);
 //            System.out.println("s");
-            slice.forEach(s -> System.out.println(s.getId()));
+            slice.forEach(s -> System.out.println(s.getCompany().getName()));
         }
 
 
