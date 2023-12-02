@@ -10,6 +10,7 @@ import com.spring.project.integration.annotation.IT;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.*;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.jdbc.Sql;
