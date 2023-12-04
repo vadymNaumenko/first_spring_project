@@ -31,14 +31,13 @@ public class GreetingController {
 //        request.getSession().setAttribute(); sessionScope
 //        request.setAttribute(); requestScope
 //        request.getSession().getAttribute("user")
-        model.addAttribute("user", new UserReadDto(1L, "Roma"));
+//        model.addAttribute("user", new UserReadDto(1L, "Roma"));
 
         return "greeting/hello";
     }
 
     @GetMapping("/bye")
     public String bye(@SessionAttribute("user") UserReadDto user, Model model) {
-//        request.getSession().getAttribute("user")
         return "greeting/bye";
     }
 

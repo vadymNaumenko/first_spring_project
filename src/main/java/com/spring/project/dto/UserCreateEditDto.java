@@ -1,18 +1,19 @@
 package com.spring.project.dto;
 
 import com.spring.project.database.entity.Role;
+import jakarta.persistence.*;
 import lombok.Value;
 
 import java.time.LocalDate;
 
 @Value
-public class UserReadDto {
-    Long id;
+public class UserCreateEditDto {
+
     String username;
     LocalDate birthDate;
     String lastname;
     String firstname;
     Role role;
-    CompanyReadDto company;
+    Integer companyId;
 
 }
