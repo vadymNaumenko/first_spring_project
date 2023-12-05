@@ -32,6 +32,7 @@ class UserRepositoryTest {
 
     @Test
     void checkBatch(){
+        System.out.println();
         List<User> all = userRepository.findAll();
         userRepository.updateCompanyAndRole(all);
         System.out.println();
@@ -42,7 +43,7 @@ class UserRepositoryTest {
         System.out.println();
     }
     @Test
-    @Commit
+//    @Commit
     void checkAuditing(){
         User user = userRepository.findById(1L).get();
         user.setBirthDate(user.getBirthDate().plusYears(1L));
