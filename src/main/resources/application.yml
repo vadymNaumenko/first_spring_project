@@ -25,6 +25,8 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
+    format:
+      date: iso
   datasource:
     url: jdbc:postgresql://localhost:5432/spring_db
     username: postgres
@@ -39,6 +41,7 @@ spring:
         jdbc:
           batch_size: 50
           fetch_size: 50
+    open-in-view: false
 logging:
   level:
     root: info
