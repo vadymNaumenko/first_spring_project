@@ -1,6 +1,8 @@
 package com.spring.project.http.controller;
 
+import com.spring.project.database.entity.Role;
 import com.spring.project.dto.UserCreateEditDto;
+import com.spring.project.service.CompanyService;
 import com.spring.project.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,19 +17,24 @@ import org.springframework.web.server.ResponseStatusException;
 public class UserController {
 
     private final UserService userService;
+    private final CompanyService companyService;
 
-    @GetMapping()
+    @GetMapping
     public String findAll(Model model) {
         model.addAttribute("users", userService.findAll());
         return "user/users";
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public String findById(@PathVariable Long id, Model model) {
-        return userService.findById(id).map(user -> {
-            model.addAttribute("user", userService.findById(id));
-            return "user/user";
-        }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return userService.findById(id)
+                .map(user -> {
+                    model.addAttribute("user",user);
+                    model.addAttribute("roles", Role.values());
+                    model.addAttribute("companies", companyService.findAll());
+                    return "user/user";
+                })
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
     }
 
@@ -43,7 +50,7 @@ public class UserController {
     public String update(@PathVariable Long id, @ModelAttribute UserCreateEditDto user) {
         return userService.update(id, user)
                 .map(it -> {
-                    return "redirect:/users/{}";
+                    return "redirect:/users/{id}";
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }

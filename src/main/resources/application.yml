@@ -22,9 +22,9 @@ db:
 spring.profiles.active: qa
 spring:
   mvc:
-    view:
-      prefix: /WEB-INF/jsp/
-      suffix: .jsp
+#    view:
+#      prefix: /WEB-INF/jsp/
+#      suffix: .jsp
     format:
       date: iso
   datasource:
