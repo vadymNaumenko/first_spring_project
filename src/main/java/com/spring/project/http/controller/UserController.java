@@ -2,6 +2,8 @@ package com.spring.project.http.controller;
 
 import com.spring.project.database.entity.Role;
 import com.spring.project.dto.UserCreateEditDto;
+import com.spring.project.dto.UserFilter;
+import com.spring.project.dto.UserReadDto;
 import com.spring.project.service.CompanyService;
 import com.spring.project.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -21,8 +25,9 @@ public class UserController {
     private final CompanyService companyService;
 
     @GetMapping
-    public String findAll(Model model) {
-        model.addAttribute("users", userService.findAll());
+    public String findAll(Model model, UserFilter filter) {
+        List<UserReadDto> all = userService.findAll(filter);
+        model.addAttribute("users", userService.findAll(filter));
         return "user/users";
     }
 
@@ -55,7 +60,6 @@ public class UserController {
             redirectAttributes.addFlashAttribute("user",user);
             return "redirect:/users/registration";
         }
-        System.out.println();
         return "redirect:/users/" + userService.create(user).getId();
     }
 

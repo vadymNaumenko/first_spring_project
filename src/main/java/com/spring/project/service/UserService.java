@@ -4,6 +4,7 @@ import com.spring.project.bpp.Transaction;
 import com.spring.project.database.repository.CompanyRepository;
 import com.spring.project.database.repository.UserRepository;
 import com.spring.project.dto.UserCreateEditDto;
+import com.spring.project.dto.UserFilter;
 import com.spring.project.dto.UserReadDto;
 import com.spring.project.mapper.UserCreateEditMapper;
 import com.spring.project.mapper.UserReadMapper;
@@ -25,6 +26,11 @@ public class UserService {
     private final UserCreateEditMapper userCreateEditMapper;
 
 
+    public List<UserReadDto> findAll(UserFilter filter) {
+        return userRepository.findAllByFilter(filter).stream()
+                .map(userReadMapper::map)
+                .collect(Collectors.toList());
+    }
     public List<UserReadDto> findAll() {
         return userRepository.findAll().stream()
                 .map(userReadMapper::map)

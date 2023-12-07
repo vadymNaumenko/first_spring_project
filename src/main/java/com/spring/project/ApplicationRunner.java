@@ -16,7 +16,7 @@ public class ApplicationRunner {
         System.out.println(context.getBean("pool1"));
         System.out.println(context.getBean(DatabaseProperties.class));
 
-        //75
+        //TODO 64-66 mast be make QueryDsl in file FilterUserRepositoryImpl
 
 
 
