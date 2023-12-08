@@ -1,12 +1,15 @@
 package com.spring.project.http.controller;
 
 import com.spring.project.database.entity.Role;
+import com.spring.project.database.entity.User;
+import com.spring.project.dto.PageResponse;
 import com.spring.project.dto.UserCreateEditDto;
-import com.spring.project.dto.UserFilter;
 import com.spring.project.dto.UserReadDto;
 import com.spring.project.service.CompanyService;
 import com.spring.project.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,10 +27,17 @@ public class UserController {
     private final UserService userService;
     private final CompanyService companyService;
 
+    //    @GetMapping
+//    public String findAll(Model model, UserFilter filter) {
+//        List<UserReadDto> all = userService.findAll(filter);
+//        model.addAttribute("users", userService.findAll(filter));
+//        return "user/users";
+//    }
     @GetMapping
-    public String findAll(Model model, UserFilter filter) {
-        List<UserReadDto> all = userService.findAll(filter);
-        model.addAttribute("users", userService.findAll(filter));
+    public String findAll(Model model, Pageable pageable) {
+        Page<UserReadDto> page = userService.findAll(pageable);
+        PageResponse<UserReadDto> response = PageResponse.of(page);
+        model.addAttribute("users", response);
         return "user/users";
     }
 
@@ -35,7 +45,7 @@ public class UserController {
     public String findById(@PathVariable Long id, Model model) {
         return userService.findById(id)
                 .map(user -> {
-                    model.addAttribute("user",user);
+                    model.addAttribute("user", user);
                     model.addAttribute("roles", Role.values());
                     model.addAttribute("companies", companyService.findAll());
                     return "user/user";
@@ -45,8 +55,8 @@ public class UserController {
     }
 
     @GetMapping("/registration")
-    public String registration(Model model, @ModelAttribute("user") UserCreateEditDto user){
-        model.addAttribute("user",user);
+    public String registration(Model model, @ModelAttribute("user") UserCreateEditDto user) {
+        model.addAttribute("user", user);
         model.addAttribute("roles", Role.values());
         model.addAttribute("companies", companyService.findAll());
         return "user/registration";
@@ -56,8 +66,8 @@ public class UserController {
     @PostMapping()
 //    @ResponseStatus(HttpStatus.CREATED)
     public String create(@ModelAttribute UserCreateEditDto user, RedirectAttributes redirectAttributes) {
-        if (true){
-            redirectAttributes.addFlashAttribute("user",user);
+        if (true) {
+            redirectAttributes.addFlashAttribute("user", user);
             return "redirect:/users/registration";
         }
         return "redirect:/users/" + userService.create(user).getId();
