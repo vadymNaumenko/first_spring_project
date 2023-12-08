@@ -1,7 +1,6 @@
 package com.spring.project.http.controller;
 
 import com.spring.project.database.entity.Role;
-import com.spring.project.database.entity.User;
 import com.spring.project.dto.PageResponse;
 import com.spring.project.dto.UserCreateEditDto;
 import com.spring.project.dto.UserReadDto;
@@ -13,11 +12,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -65,9 +64,12 @@ public class UserController {
     // 14 min
     @PostMapping()
 //    @ResponseStatus(HttpStatus.CREATED)
-    public String create(@ModelAttribute UserCreateEditDto user, RedirectAttributes redirectAttributes) {
-        if (true) {
+    public String create(@ModelAttribute @Validated UserCreateEditDto user,
+                         BindingResult bindingResult,
+                         RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("user", user);
+            redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
             return "redirect:/users/registration";
         }
         return "redirect:/users/" + userService.create(user).getId();
@@ -75,7 +77,7 @@ public class UserController {
 
     //    @PutMapping("/{id}")
     @PostMapping("/{id}/update")
-    public String update(@PathVariable Long id, @ModelAttribute UserCreateEditDto user) {
+    public String update(@PathVariable Long id, @ModelAttribute @Validated UserCreateEditDto user) {
         return userService.update(id, user)
                 .map(it -> {
                     return "redirect:/users/{id}";
