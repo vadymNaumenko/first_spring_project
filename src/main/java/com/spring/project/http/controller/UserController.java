@@ -6,6 +6,9 @@ import com.spring.project.dto.UserCreateEditDto;
 import com.spring.project.dto.UserReadDto;
 import com.spring.project.service.CompanyService;
 import com.spring.project.service.UserService;
+import com.spring.project.validation.group.CreateAction;
+import com.spring.project.validation.group.UpdateAction;
+import jakarta.validation.groups.Default;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -62,9 +65,9 @@ public class UserController {
     }
 
     // 14 min
-    @PostMapping()
+    @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
-    public String create(@ModelAttribute @Validated UserCreateEditDto user,
+    public String create(@ModelAttribute @Validated({Default.class, CreateAction.class}) UserCreateEditDto user,
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -77,7 +80,8 @@ public class UserController {
 
     //    @PutMapping("/{id}")
     @PostMapping("/{id}/update")
-    public String update(@PathVariable Long id, @ModelAttribute @Validated UserCreateEditDto user) {
+    public String update(@PathVariable Long id,
+                         @ModelAttribute @Validated({Default.class, UpdateAction.class}) UserCreateEditDto user) {
         return userService.update(id, user)
                 .map(it -> {
                     return "redirect:/users/{id}";
