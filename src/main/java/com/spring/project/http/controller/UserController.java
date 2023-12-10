@@ -8,8 +8,10 @@ import com.spring.project.service.CompanyService;
 import com.spring.project.service.UserService;
 import com.spring.project.validation.group.CreateAction;
 import com.spring.project.validation.group.UpdateAction;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.groups.Default;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -20,7 +22,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+@Slf4j
 @Controller
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -35,6 +37,7 @@ public class UserController {
 //        model.addAttribute("users", userService.findAll(filter));
 //        return "user/users";
 //    }
+
     @GetMapping
     public String findAll(Model model, Pageable pageable) {
         Page<UserReadDto> page = userService.findAll(pageable);
