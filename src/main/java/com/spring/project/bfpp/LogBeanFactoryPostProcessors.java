@@ -5,10 +5,7 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.PriorityOrdered;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
-import java.lang.annotation.Annotation;
 @Component
 public class LogBeanFactoryPostProcessors implements BeanFactoryPostProcessor, PriorityOrdered {
     @Override

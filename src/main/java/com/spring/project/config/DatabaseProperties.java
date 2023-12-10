@@ -1,11 +1,7 @@
 package com.spring.project.config;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-
 import java.util.List;
 import java.util.Map;
 
