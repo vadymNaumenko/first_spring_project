@@ -14,6 +14,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.annotation.CurrentSecurityContext;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +25,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 @Slf4j
 @Controller
 @RequestMapping("/users")
@@ -45,10 +50,12 @@ public class UserController {
         return "user/users";
     }
 
+    //    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/{id}")
-//    @PreAuthorize("hasAuthority('ADMIN')")
-//    @PostAuthorize("returnObject")
-    public String findById(@PathVariable Long id, Model model) {
+
+    public String findById(@PathVariable Long id, Model model,
+                           @CurrentSecurityContext SecurityContext securityContext,
+                           @AuthenticationPrincipal UserDetails userDetails) {
         return userService.findById(id)
                 .map(user -> {
                     model.addAttribute("user", user);
@@ -76,7 +83,7 @@ public class UserController {
                          RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("user", user);
-            redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             return "redirect:/users/registration";
         }
         userService.create(user);

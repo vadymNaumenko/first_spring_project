@@ -6,6 +6,7 @@
 </head>
 <body>
 <!--<div th:insert="~{fragment.html}"></div>-->
+<!--<span th:text="${#authentication.principle.username}">username</span>-->
 <form th:action="@{/logout}" method="post">
     <button type="submit">Logout</button>
 </form>
