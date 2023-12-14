@@ -46,6 +46,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+//    @PreAuthorize("hasAuthority('ADMIN')")
+//    @PostAuthorize("returnObject")
     public String findById(@PathVariable Long id, Model model) {
         return userService.findById(id)
                 .map(user -> {
@@ -77,7 +79,8 @@ public class UserController {
             redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
             return "redirect:/users/registration";
         }
-        return "redirect:/users/" + userService.create(user).getId();
+        userService.create(user);
+        return "redirect:/login";
     }
 
     //    @PutMapping("/{id}")

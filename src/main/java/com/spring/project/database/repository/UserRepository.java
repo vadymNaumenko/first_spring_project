@@ -1,13 +1,12 @@
 package com.spring.project.database.repository;
+
 import com.spring.project.database.entity.Role;
 import com.spring.project.database.entity.User;
-import com.spring.project.dto.PersonalInfo;
 import com.spring.project.dto.PersonalInfo2;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.QueryHint;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.history.RevisionRepository;
@@ -67,7 +66,5 @@ public interface UserRepository extends
     List<PersonalInfo2> findAllByCompanyId(Integer id);
 
 
-
-
-
+    Optional<User> findByUsername(String username);
 }

@@ -4,6 +4,7 @@ import com.spring.project.database.entity.Role;
 import com.spring.project.validation.UserInfo;
 import com.spring.project.validation.group.CreateAction;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Value;
 import lombok.experimental.FieldNameConstants;
@@ -18,6 +19,8 @@ public class UserCreateEditDto {
 
     @Email
     String username;
+    @NotBlank(groups = CreateAction.class)
+    String rawPassword;
     LocalDate birthDate;
 
     @Size(min = 3, max = 64)

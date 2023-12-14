@@ -5,6 +5,10 @@
     <title>Users</title>
 </head>
 <body>
+<!--<div th:insert="~{fragment.html}"></div>-->
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Logout</button>
+</form>
 <form action="/users">
 <!--    <label for="firstname">Firstname:-->
 <!--        <input id="firstname" type="text" name="firstname" th:value="${filter.firstname()}">-->
