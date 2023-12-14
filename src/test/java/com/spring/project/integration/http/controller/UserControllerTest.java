@@ -1,18 +1,17 @@
 package com.spring.project.integration.http.controller;
 
-import com.spring.project.dto.UserCreateEditDto;
 import com.spring.project.integration.annotation.IT;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.spring.project.dto.UserCreateEditDto.Fields.*;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @IT
@@ -21,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         "classpath:sql/data.sql"
 })
 @AutoConfigureMockMvc
+@WithMockUser(username = "test@gmail.com", password = "test", authorities = {"ADMIN","USER"})
 class UserControllerTest {
 
     private final MockMvc mockMvc;
@@ -34,6 +34,7 @@ class UserControllerTest {
                 .andExpect(model().attribute("users", hasSize(5)));
     }
     @Test
+    @WithMockUser(username = "test@gmail.com", password = "test", authorities = {"ADMIN"})
     void create() throws Exception {
 
         mockMvc.perform(post("/users")
