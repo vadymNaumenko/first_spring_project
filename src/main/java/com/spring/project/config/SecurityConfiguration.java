@@ -19,9 +19,7 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf()
-                .disable()
-
+        http
                 .authorizeHttpRequests(authUrl-> authUrl
                 .requestMatchers(antMatcher("/login"),antMatcher("/users/registration"),antMatcher("/v3/api-docs/**"),antMatcher("/swagger-ui/**")).permitAll()
                                 .requestMatchers(antMatcher("/users/{\\d+}/delete")).hasAuthority("ADMIN")
