@@ -42,6 +42,16 @@ spring:
           batch_size: 50
           fetch_size: 50
     open-in-view: false
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 782822282585-ptl1qnr0r27819kj0ibushkg85go0r3t.apps.googleusercontent.com
+            clientSecret: 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
+            redirectUri: http://localhost:8080/login/oauth2/code/google
+
 logging:
   level:
     root: info
